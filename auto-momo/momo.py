@@ -31,7 +31,7 @@ async def create_aiohttp(url, proxy_list):
         "信号灯超时时间已到": 0
     }
     print("开始尝试...")
-    async with ClientSession() as session:
+    async with ClientSession(timeout=ClientTimeout(total=600)) as session:
         # 生成任务列表
         task = []
         count = 0
@@ -49,12 +49,12 @@ async def create_aiohttp(url, proxy_list):
 # 网页访问
 async def web_request(url, proxy, session, count):
     # 并发限制
-    #print(f"request {proxy}")
+    # print(f"request {proxy}")
     global error_count_dict
     async with Semaphore(5):
         try:
             async with await session.get(url=url, headers=await getheaders(), proxy=proxy,
-                                         timeout=ClientTimeout(total=600)) as response:
+                                         timeout=ClientTimeout(total=600, ceil_threshold=600)) as response:
                 # 返回字符串形式的相应数据
                 page_source = await response.text()
                 await page(page_source)
@@ -105,7 +105,8 @@ def main():
     res = f"总代理数量{len(ip_list)}，墨墨分享链接访问成功{n}次。错误统计：{error_count_dict}"
     print(res)
     with open("./time.log", mode="a", encoding="utf-8") as f:
-        f.write("\n"+res+"\n")
+        f.write("\n" + res + "\n")
+
 
 if __name__ == '__main__':
     main()
