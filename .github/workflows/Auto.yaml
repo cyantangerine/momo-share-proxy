@@ -50,7 +50,7 @@ jobs:
 
       - name: Commit #上传新的time.log到仓库
         run: |
-          git config --global user.email robot@github.com
+          git config --global user.email robot
           git config --global user.name robot
           git add time.log
           git commit -m "Auto Update" -a

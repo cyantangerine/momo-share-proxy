@@ -104,7 +104,7 @@ def main():
 
     res = f"总代理数量{len(ip_list)}，墨墨分享链接访问成功{n}次。错误统计：{error_count_dict}"
     print(res)
-    with open("./time.log", mode="a+", encoding="utf-8") as f:
+    with open("./time.log", mode="a", encoding="utf-8") as f:
         f.write("\n"+res+"\n")
 
 if __name__ == '__main__':
