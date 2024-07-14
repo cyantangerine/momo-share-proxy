@@ -17,6 +17,7 @@ if environ.get('GITHUB_RUN_ID', None) and 'link' in environ.keys():
 async def create_aiohttp(url, proxy_list):
     global n
     n = 0
+    print("开始尝试...")
     async with ClientSession() as session:
         # 生成任务列表
         task = [create_task(web_request(url, proxy, session)) for proxy in proxy_list]
@@ -28,11 +29,11 @@ async def web_request(url, proxy, session):
     # 并发限制
     async with Semaphore(5):
         try:
-            async with await session.get(url=url, headers=await getheaders(), proxy=proxy,
-                                         timeout=ClientTimeout(total=10)) as response:
+            async with await session.get(url=url, headers=await getheaders(), proxy=proxy, timeout=ClientTimeout(total=10)) as response:
                 # 返回字符串形式的相应数据
                 page_source = await response.text()
                 await page(page_source)
+            print(f"尝试...{proxy}")
         except Exception:
             pass
 
