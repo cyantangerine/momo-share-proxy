@@ -54,8 +54,7 @@ async def web_request(url, proxy, session, count):
     global error_count_dict
     async with Semaphore(5):
         try:
-            async with await session.get(url=url, headers=await getheaders(), proxy=proxy,
-                                         timeout=ClientTimeout(total=600)) as response:
+            async with await session.get(url=url, headers=await getheaders(), proxy=proxy, timeout=ClientTimeout(total=600)) as response:
                 # 返回字符串形式的相应数据
                 page_source = await response.text()
                 await page(page_source)
@@ -83,7 +82,11 @@ async def web_request(url, proxy, session, count):
             else:
                 error_count_dict["timeout"] += 1
                 print(f"{proxy} Fail TimeOut: {e}")
-                traceback.print_exc()
+                print(repr(e))
+                if repr(e) not in error_count_dict:
+                    error_count_dict[repr(e)] = 1
+                else:
+                    error_count_dict[repr(e)] += 1
 
             pass
 
