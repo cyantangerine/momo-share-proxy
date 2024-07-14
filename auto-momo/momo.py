@@ -54,7 +54,7 @@ async def web_request(url, proxy, session, count):
     async with Semaphore(5):
         try:
             async with await session.get(url=url, headers=await getheaders(), proxy=proxy,
-                                         timeout=ClientTimeout(total=600, ceil_threshold=600)) as response:
+                                         timeout=ClientTimeout(total=600)) as response:
                 # 返回字符串形式的相应数据
                 page_source = await response.text()
                 await page(page_source)
