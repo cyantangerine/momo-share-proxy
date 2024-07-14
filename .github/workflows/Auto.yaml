@@ -39,8 +39,8 @@ jobs:
 
       - name: 'set timestamp'
         run: |
-          echo `date +"%Y-%m-%d %H:%M:%S"  ` > time.log
-          cat ./url.txt > time.log
+          echo `date +"%Y-%m-%d %H:%M:%S"  ` >> time.log
+          cat ./url.txt >> time.log
 
       - name: 'Working'
         env:
