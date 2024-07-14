@@ -23,7 +23,7 @@ async def create_aiohttp(url, proxy_list):
         task = []
         for proxy in proxy_list:
             print(f"创建任务...{proxy}")
-            create_task(web_request(url, proxy, session))
+            task.append(create_task(web_request(url, proxy, session)))
         await wait(task)
         print("等待完毕")
 
@@ -31,6 +31,7 @@ async def create_aiohttp(url, proxy_list):
 # 网页访问
 async def web_request(url, proxy, session):
     # 并发限制
+    print(f"request {proxy}")
     async with Semaphore(5):
         try:
             async with await session.get(url=url, headers=await getheaders(), proxy=proxy, timeout=ClientTimeout(total=10)) as response:
@@ -38,7 +39,8 @@ async def web_request(url, proxy, session):
                 page_source = await response.text()
                 await page(page_source)
             print(f"尝试...{proxy}")
-        except Exception:
+        except Exception as e:
+            print(f"Fail: {e}")
             pass
 
 
