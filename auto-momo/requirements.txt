@@ -1,2 +1,5 @@
 aiohttp
 lxml
+pytz
+requests
+datetime
