@@ -18,7 +18,7 @@ async def create_aiohttp(url, proxy_list):
     global n
     n = 0
     print("开始尝试...")
-    with ClientSession() as session:
+    async with ClientSession() as session:
         # 生成任务列表
         task = []
         for proxy in proxy_list:
