@@ -1,4 +1,5 @@
 # encoding:utf-8
+import traceback
 from asyncio import create_task, wait, Semaphore, run
 from os import environ
 
@@ -81,8 +82,8 @@ async def web_request(url, proxy, session, count):
                     print(f"{proxy} Fail: {e}")
             else:
                 error_count_dict["timeout"] += 1
-                # print(f"{proxy} Fail TimeOut: {e}")
-                # traceback.print_exc()
+                print(f"{proxy} Fail TimeOut: {e}")
+                traceback.print_exc()
 
             pass
 
