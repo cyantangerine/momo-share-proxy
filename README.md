@@ -1,4 +1,9 @@
+## 此仓库已弃用，请前往 [cyantangerine/momoshare (github.com)](https://github.com/cyantangerine/momoshare) 查看。
+
+
+
 ## 2024.07
+
 链接放入url.txt，运行auto-momo/momo.py
 现在每天只能加3个了
 github action访问代理有问题，最好本地运行。
